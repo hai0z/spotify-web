@@ -1,128 +1,90 @@
-import {
-    AiFillHome,
-    AiOutlineSearch,
-    AiOutlineArrowRight,
-} from "react-icons/ai";
-import { BiLibrary } from "react-icons/bi";
-import { IoIosAdd } from "react-icons/io";
-import PlaylistCard from "./components/Library/PlaylistCard";
 import MiniCard from "./components/SongCard/MiniCard";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Player from "./components/Player/Player";
+import { useState, useRef } from "react";
+import { usePlayerContext } from "./context/PlayerProvider";
+import Card from "./components/SongCard/Card";
+import Header from "./components/header/Header";
 function App() {
-    const [playlist, setPlaylist] = useState([]);
-    const [playSong, setPlaySong] = useState("");
     const [currentColor, setCurrentColor] = useState("#1c0f3f");
-    useEffect(() => {
-        const getPlaylist = async () => {
-            const options = {
-                method: "GET",
-                url: "https://shazam-core.p.rapidapi.com/v1/charts/country",
-                params: { country_code: "VN" },
-                headers: {
-                    "content-type": "application/octet-stream",
-                    "X-RapidAPI-Key":
-                        "fcfe5a00eemshcaa5ba933a8931dp18407cjsn06329a84995b",
-                    "X-RapidAPI-Host": "shazam-core.p.rapidapi.com",
-                },
-            };
-
-            try {
-                const response = await axios.request(options);
-                setPlaylist(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        getPlaylist();
-    }, []);
+    const { setCurrentSong, playlist } = usePlayerContext();
+    const bodyRef = useRef();
+    const [headerColor, setHeaderColor] = useState("transparent");
     return (
-        <div className="h-screen">
-            <div className="w-full bg-[#000000] flex flex-row gap-2">
-                <div className="bg-[#000000]  w-2/12 flex flex-col items-center px-1 py-1">
-                    <div className="bg-[#121212] h-28 w-full flex flex-col rounded-md justify-around pl-2">
-                        <div className="flex flex-row items-center cursor-pointer">
-                            <AiFillHome className="text-white text-lg" />
-                            <span className="text-white ml-2">Home</span>
+        <div
+            className="w-full bg-[#121212] my-2 pb-4 rounded-md overflow-y-auto mr-2"
+            onScroll={() => {
+                if (bodyRef.current.scrollTop > 130) {
+                    setHeaderColor("#1c0f3f");
+                } else if (bodyRef.current.scrollTop > 90) {
+                    setHeaderColor("#1c0f3f80");
+                } else {
+                    setHeaderColor("transparent");
+                }
+            }}
+            ref={bodyRef}
+        >
+            <div className="pr-6">
+                <Header color={headerColor} />
+            </div>
+            <div
+                onMouseLeave={() => setCurrentColor("#1c0f3f")}
+                className={`w-full h-64 px-6 transition-all duration-200 rounded-md pt-16`}
+                style={{
+                    background: `linear-gradient(to bottom,  ${currentColor} 0%,#121212 100%)`,
+                }}
+            >
+                <h1 className="font-bold text-[30px] text-white pt-2">
+                    Good evening
+                </h1>
+                <div className="w-full grid grid-cols-3 gap-4 mt-2">
+                    {playlist.slice(20, 26)?.map((item, index) => (
+                        <div
+                            onClick={() => setCurrentSong(item)}
+                            key={index}
+                            onMouseEnter={() => {
+                                setCurrentColor(
+                                    `#${
+                                        item?.images?.joecolor?.split(":")[5]
+                                    }80`
+                                );
+                            }}
+                        >
+                            <MiniCard item={item} />
                         </div>
-                        <div className="flex flex-row items-center cursor-pointer">
-                            <AiOutlineSearch className="text-gray-200 text-lg" />
-                            <span className="text-gray-200 ml-2">Search</span>
-                        </div>
-                    </div>
-                    <div className="bg-[#121212] mt-4 h-full w-full rounded-md pl-2 overflow-hidden">
-                        <div className="flex flex-col">
-                            <div className="flex flex-row justify-between">
-                                <div className="flex flex-row items-center ">
-                                    <BiLibrary className="text-white text-lg" />
-                                    <span className="text-white ml-2">
-                                        Your Library
-                                    </span>
-                                </div>
-                                <div className="flex flex-row items-center px-2">
-                                    <IoIosAdd className="text-white text-lg mr-4 " />
-                                    <AiOutlineArrowRight className="text-white" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex flex-row mt-4">
-                            <button className="bg-[#2a2a2a] rounded-xl text-white px-3 mr-2">
-                                Playlist
-                            </button>
-                            <button className="bg-[#2a2a2a] rounded-xl text-white px-3">
-                                Artist
-                            </button>
-                        </div>
-                        <div className="flex flex-col ml-2 mt-2">
-                            <div className="flex flex-row justify-between">
-                                <AiOutlineSearch className="text-gray-200 text-lg" />
-                                <span className="text-white text-[12px] mr-2">
-                                    Recents
-                                </span>
-                            </div>
-                            <div className="mt-4">
-                                {playlist.slice(30, 35).map((item, index) => (
-                                    <PlaylistCard key={index} item={item} />
-                                ))}
-                            </div>
-                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="ml-6">
+                <div className="mt-20">
+                    <p className="text-white text-[28px] font-bold mb-4">
+                        Trending
+                    </p>
+                    <div className="grid grid-cols-4 xl:grid-cols-5">
+                        {playlist.slice(4, 9).map((song, index) => (
+                            <Card key={index} item={song} />
+                        ))}
                     </div>
                 </div>
-                <div className="w-10/12 min-h-screen bg-[#121212] ">
-                    <div
-                        className={`w-full h-64 px-4 transition-all duration-200`}
-                        style={{
-                            background: `linear-gradient(to bottom,  ${currentColor} 0%,#121212 100%)`,
-                        }}
-                    >
-                        <h1 className="font-bold text-[30px] text-white">
-                            Good evening
-                        </h1>
-                        <div className="w-full grid grid-cols-3 gap-4 mt-2">
-                            {playlist.slice(10, 16)?.map((item, index) => (
-                                <div
-                                    onClick={() => setPlaySong(item)}
-                                    key={index}
-                                    onMouseEnter={() => {
-                                        setCurrentColor(
-                                            `#${
-                                                item?.images?.joecolor?.split(
-                                                    ":"
-                                                )[5]
-                                            }`
-                                        );
-                                    }}
-                                >
-                                    <MiniCard item={item} />
-                                </div>
-                            ))}
-                        </div>
+                <div className="mt-4">
+                    <p className="text-white text-[28px] font-bold mb-4">
+                        For you
+                    </p>
+                    <div className="grid grid-cols-4 md:grid-cols-5">
+                        {playlist.slice(30, 35).map((song, index) => (
+                            <Card key={index} item={song} />
+                        ))}
+                    </div>
+                </div>
+                <div className="mt-4">
+                    <p className="text-white text-[28px] font-bold mb-4">
+                        Top mixes
+                    </p>
+                    <div className="grid grid-cols-4 md:grid-cols-5">
+                        {playlist.slice(40, 45).map((song, index) => (
+                            <Card key={index} item={song} />
+                        ))}
                     </div>
                 </div>
             </div>
-            <Player item={playSong} />
         </div>
     );
 }
