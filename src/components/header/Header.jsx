@@ -3,7 +3,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 function Header({ color }) {
     return (
         <div
-            className="w-[78.5% ] flex-row h-16 fixed z-20 flex items-center justify-between rounded-md overflow-hidden px-6"
+            className="w-[78.5%] flex-row h-16 fixed z-20 flex items-center justify-between rounded-md overflow-hidden px-6"
             style={{
                 backgroundColor: color,
             }}
