@@ -36,7 +36,7 @@ function LeftPanel() {
                             color: location.pathname === "/" ? "white" : "gray",
                         }}
                     />
-                    <Link
+                    <p
                         className="text-white ml-2 font-bold"
                         style={{
                             display: expandLibrary ? "block" : "none",
@@ -44,7 +44,7 @@ function LeftPanel() {
                         }}
                     >
                         Home
-                    </Link>
+                    </p>
                 </Link>
                 <Link
                     to={"/search"}
@@ -63,7 +63,7 @@ function LeftPanel() {
                                     : "gray",
                         }}
                     />
-                    <Link
+                    <p
                         className="ml-2 font-bold"
                         to={"/search"}
                         style={{
@@ -75,7 +75,7 @@ function LeftPanel() {
                         }}
                     >
                         Search
-                    </Link>
+                    </p>
                 </Link>
             </div>
             <div

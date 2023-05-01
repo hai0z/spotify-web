@@ -1,24 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useContext, createContext, useState, useEffect, useRef } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import axios from "axios";
 const playerContext = createContext();
 
 function PlayerProvider({ children }) {
     const [currentSong, setCurrentSong] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [expandLibrary, setExpandLibrary] = useState(true);
-    const [playlist, setPlaylist] = useState([]);
-    const audioRef = useRef();
 
-    const handlePlayPause = () => {
-        if (isPlaying) {
-            audioRef.current.pause();
-            setIsPlaying(false);
-        } else {
-            audioRef.current.play();
-            setIsPlaying(true);
-        }
-    };
+    const [expandLibrary, setExpandLibrary] = useState(true);
+
+    const [playlist, setPlaylist] = useState([]);
 
     useEffect(() => {
         const getPlaylist = async () => {
@@ -37,19 +28,12 @@ function PlayerProvider({ children }) {
             try {
                 const response = await axios.request(options);
                 setPlaylist(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error(error);
             }
         };
         getPlaylist();
     }, []);
-    useEffect(() => {
-        if (currentSong !== null) {
-            audioRef.current.play();
-            setIsPlaying(true);
-        }
-    }, [currentSong, setIsPlaying, audioRef]);
 
     const defaultValue = {
         currentSong,
@@ -60,12 +44,10 @@ function PlayerProvider({ children }) {
         setExpandLibrary,
         playlist,
         setPlaylist,
-        audioRef,
-        handlePlayPause,
     };
     return (
         <playerContext.Provider value={defaultValue}>
-            {children}
+            <div>{children}</div>
         </playerContext.Provider>
     );
 }

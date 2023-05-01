@@ -38,7 +38,6 @@ function App() {
                 <div className="w-full grid grid-cols-3 gap-4 mt-2">
                     {playlist.slice(20, 26)?.map((item, index) => (
                         <div
-                            onClick={() => setCurrentSong(item)}
                             key={index}
                             onMouseEnter={() => {
                                 setCurrentColor(
@@ -48,7 +47,12 @@ function App() {
                                 );
                             }}
                         >
-                            <MiniCard item={item} />
+                            <MiniCard
+                                item={item}
+                                onClick={() => {
+                                    setCurrentSong(item);
+                                }}
+                            />
                         </div>
                     ))}
                 </div>
