@@ -35,6 +35,13 @@ function Player() {
             audioRef.current.play();
         }
     };
+    useEffect(() => {
+        if (isPlaying) {
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    }, [isPlaying]);
 
     return (
         <div className="w-full bg-black h-20 absolute bottom-0 items-center flex flex-row justify-between px-4">
@@ -56,6 +63,7 @@ function Player() {
 
             <div className="flex flex-col items-center h-full ">
                 <audio
+                    loop
                     ref={audioRef}
                     src={currentSong?.hub?.actions?.[1]?.uri}
                     onTimeUpdate={(e) => {

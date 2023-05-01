@@ -1,9 +1,32 @@
+/* eslint-disable react/display-name */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-extra-boolean-cast */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 import axios from "axios";
 import { usePlayerContext } from "../context/PlayerProvider";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
+
+const SearchCard = React.memo(({ index, g }) => {
+    const randomColor = () => Math.floor(Math.random() * 16777215).toString(16);
+
+    return (
+        <div
+            key={index}
+            className="h-48 w-48 cursor-pointer p-4 rounded-md relative overflow-hidden"
+            style={{
+                backgroundColor: "#" + randomColor(),
+            }}
+        >
+            <img
+                src={`https://picsum.photos/200/${300 + index}`}
+                alt=""
+                className="w-24 h-24 absolute bottom-0 rotate-12 -right-2  z-0"
+            />
+            <p className="text-white font-bold text-lg">{g}</p>
+        </div>
+    );
+});
 
 function Search() {
     const [searchValue, setSearchValue] = useState("");
@@ -11,7 +34,8 @@ function Search() {
 
     const debouceSearch = useDebounce(searchValue, 3000);
 
-    const { setCurrentSong, isPlaying } = usePlayerContext();
+    const { setCurrentSong, isPlaying, setIsPlaying, currentSong } =
+        usePlayerContext();
     useEffect(() => {
         const search = async () => {
             const options = {
@@ -38,7 +62,8 @@ function Search() {
             }
         };
         if (debouceSearch) search();
-    }, [debouceSearch]);
+    }, [debouceSearch, searchValue]);
+
     const genres = [
         "Podcast",
         "Live Event",
@@ -55,7 +80,6 @@ function Search() {
         "RADAR",
         "Discover",
     ];
-    const randomColor = () => Math.floor(Math.random() * 16777215).toString(16);
     return (
         <div className="w-full bg-[#121212] my-2 pb-4 rounded-md overflow-y-auto mr-2">
             <div className="ml-6 mt-2">
@@ -67,7 +91,7 @@ function Search() {
                     className="bg-[#282828] w-[450px] h-12 rounded-full border-none pl-4 text-white "
                 />
             </div>
-            {!!searchResult ? (
+            {!!searchResult || debouceSearch !== "" ? (
                 <div>
                     <div className="mt-6 ml-6 grid grid-cols-2 gap-8">
                         <div>
@@ -97,23 +121,34 @@ function Search() {
                                                 ?.track?.subtitle
                                         }
                                     </span>
-                                    <span className="text-white px-2 rounded-full bg-black/60 font-semibold">
+                                    <span className="text-white py-1 px-3 rounded-full bg-black/60 font-semibold">
                                         Song
                                     </span>
                                 </div>
                                 <div
-                                    className="bg-[#1fdf64] w-12 h-12 rounded-full absolute right-6 bottom-0 justify-center flex items-center opacity-0 group-hover:opacity-100  transition-all duration-300 group-hover:bottom-4"
-                                    onClick={() =>
+                                    className={`bg-[#1fdf64] w-12 h-12 rounded-full absolute right-6 bottom-0 justify-center flex items-center opacity-0 group-hover:opacity-100  transition-all duration-300 group-hover:bottom-4
+                                    ${
+                                        currentSong?.key ===
+                                            searchResult?.tracks?.hits?.[0]
+                                                ?.track?.key &&
+                                        isPlaying &&
+                                        "opacity-100 bottom-4"
+                                    }
+                                    `}
+                                    onClick={() => {
                                         setCurrentSong(
                                             searchResult?.tracks?.hits?.[0]
                                                 ?.track
-                                        )
-                                    }
+                                        );
+                                        setIsPlaying(!isPlaying);
+                                    }}
                                 >
-                                    {!isPlaying ? (
-                                        <BsFillPlayFill className="text-[#000] text-[24px]" />
-                                    ) : (
+                                    {isPlaying &&
+                                    searchResult?.tracks?.hits?.[0]?.track
+                                        ?.key === currentSong?.key ? (
                                         <BsFillPauseFill className="text-[#000] text-[24px]" />
+                                    ) : (
+                                        <BsFillPlayFill className="text-[#000] text-[24px]" />
                                     )}
                                 </div>
                             </div>
@@ -136,14 +171,52 @@ function Search() {
                                                         ?.coverart
                                                 }
                                                 alt=""
-                                                className="h-10 w-10  group-hover:brightness-50"
+                                                className={`h-10 w-10  group-hover:brightness-50 ${
+                                                    currentSong?.key ===
+                                                        hits.track.key &&
+                                                    "brightness-50"
+                                                }`}
                                             />
-                                            <BsFillPlayFill
-                                                className="absolute text-white opacity-0 group-hover:opacity-100 left-6 cursor-pointer"
-                                                onClick={() =>
-                                                    setCurrentSong(hits?.track)
-                                                }
-                                            />
+                                            <div className="absolute left-6">
+                                                {currentSong?.key ==
+                                                    hits.track.key &&
+                                                isPlaying ? (
+                                                    <BsFillPauseFill
+                                                        className={` text-white opacity-0 group-hover:opacity-100  cursor-pointer ${
+                                                            currentSong?.key ===
+                                                                hits.track
+                                                                    .key &&
+                                                            "opacity-100"
+                                                        }`}
+                                                        onClick={() => {
+                                                            setIsPlaying(
+                                                                !isPlaying
+                                                            );
+                                                            setCurrentSong(
+                                                                hits?.track
+                                                            );
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <BsFillPlayFill
+                                                        className={` text-white opacity-0 group-hover:opacity-100  cursor-pointer ${
+                                                            currentSong?.key ===
+                                                                hits.track
+                                                                    .key &&
+                                                            "opacity-100"
+                                                        }`}
+                                                        onClick={() => {
+                                                            setIsPlaying(
+                                                                !isPlaying
+                                                            );
+                                                            setCurrentSong(
+                                                                hits?.track
+                                                            );
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
+
                                             <div className="ml-2">
                                                 <p className="text-white">
                                                     {hits?.track?.title}
@@ -167,26 +240,9 @@ function Search() {
                     <p className="text-white text-2xl font-bold mb-4">
                         Brower all
                     </p>
-                    <div className="grid grid-cols-5 gap-6">
+                    <div className="grid grid-cols-5 gap-8">
                         {genres.map((g, index) => (
-                            <div
-                                key={index}
-                                className="h-52 w-52 cursor-pointer p-4 rounded-md relative overflow-hidden"
-                                style={{
-                                    backgroundColor: "#" + randomColor(),
-                                }}
-                            >
-                                <img
-                                    src={`https://picsum.photos/200/${
-                                        300 + index
-                                    }`}
-                                    alt=""
-                                    className="w-24 h-24 absolute bottom-0 rotate-12 -right-2  z-0"
-                                />
-                                <p className="text-white font-bold text-lg">
-                                    {g}
-                                </p>
-                            </div>
+                            <SearchCard g={g} index={index} key={index} />
                         ))}
                     </div>
                 </div>

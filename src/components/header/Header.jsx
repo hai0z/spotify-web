@@ -1,11 +1,16 @@
 /* eslint-disable react/prop-types */
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { usePlayerContext } from "../../context/PlayerProvider";
 function Header({ color }) {
+    const { panelWidth, expandLibrary } = usePlayerContext();
     return (
         <div
-            className="w-[78.5%] flex-row h-16 fixed z-20 flex items-center justify-between rounded-md overflow-hidden px-6"
+            className="flex-row h-16 fixed z-20 flex items-center justify-between rounded-md overflow-hidden px-6"
             style={{
                 backgroundColor: color,
+                width: expandLibrary
+                    ? `calc(100% - ${panelWidth + 20}px)`
+                    : `calc(100% - ${panelWidth + 20}px)`,
             }}
         >
             <div className="flex flex-row items-center gap-3">

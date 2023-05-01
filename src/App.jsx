@@ -5,7 +5,8 @@ import Card from "./components/SongCard/Card";
 import Header from "./components/header/Header";
 function App() {
     const [currentColor, setCurrentColor] = useState("#1c0f3f");
-    const { setCurrentSong, playlist } = usePlayerContext();
+    const { setCurrentSong, playlist, setIsPlaying, isPlaying } =
+        usePlayerContext();
     const bodyRef = useRef();
     const [headerColor, setHeaderColor] = useState("transparent");
     return (
@@ -27,9 +28,9 @@ function App() {
             </div>
             <div
                 onMouseLeave={() => setCurrentColor("#1c0f3f")}
-                className={`w-full h-64 px-6 transition-all duration-200 rounded-md pt-16`}
+                className={`w-full h-64 px-6 transition-colors duration-200 rounded-md pt-16`}
                 style={{
-                    background: `linear-gradient(to bottom,  ${currentColor} 0%,#121212 100%)`,
+                    background: `linear-gradient(to bottom,  ${currentColor} 0%,transparent 100%)`,
                 }}
             >
                 <h1 className="font-bold text-[30px] text-white pt-2">
@@ -51,6 +52,7 @@ function App() {
                                 item={item}
                                 onClick={() => {
                                     setCurrentSong(item);
+                                    setIsPlaying(!isPlaying);
                                 }}
                             />
                         </div>

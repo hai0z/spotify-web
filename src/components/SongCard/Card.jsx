@@ -4,9 +4,10 @@ import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { usePlayerContext } from "../../context/PlayerProvider";
 
 function Card({ item }) {
-    const { setCurrentSong, isPlaying, currentSong } = usePlayerContext();
+    const { setCurrentSong, isPlaying, currentSong, setIsPlaying } =
+        usePlayerContext();
     return (
-        <div className="w-60 md:w-52 h-72 xl:w-52 bg-[#282828] flex flex-col justify-center rounded-md mx-2 cursor-pointer relative group hover:bg-[#404040] duration-300">
+        <div className="w-52  h-72 bg-[#282828] flex flex-col justify-center rounded-md mx-2 cursor-pointer relative group hover:bg-[#404040] duration-300">
             <img
                 src={item?.images?.coverart}
                 alt=""
@@ -21,13 +22,20 @@ function Card({ item }) {
                 </p>
             </div>
             <div
-                className="bg-[#1fdf64] w-12 h-12 rounded-full absolute right-6 bottom-20 justify-center flex items-center opacity-0 group-hover:opacity-100  transition-all duration-300 group-hover:bottom-24"
-                onClick={() => setCurrentSong(item)}
+                className={`bg-[#1fdf64] w-12 h-12 rounded-full absolute right-6 bottom-20 justify-center flex items-center opacity-0 group-hover:opacity-100  transition-all duration-300 group-hover:bottom-24 hover:scale-105 ${
+                    currentSong?.key === item?.key &&
+                    isPlaying &&
+                    "opacity-100 bottom-24"
+                }`}
+                onClick={() => {
+                    setCurrentSong(item);
+                    setIsPlaying(!isPlaying);
+                }}
             >
-                {!isPlaying ? (
-                    <BsFillPlayFill className="text-[#000] text-[24px]" />
-                ) : (
+                {isPlaying && item?.key === currentSong?.key ? (
                     <BsFillPauseFill className="text-[#000] text-[24px]" />
+                ) : (
+                    <BsFillPlayFill className="text-[#000] text-[24px]" />
                 )}
             </div>
         </div>

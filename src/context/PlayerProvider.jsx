@@ -8,7 +8,7 @@ function PlayerProvider({ children }) {
     const [isPlaying, setIsPlaying] = useState(false);
 
     const [expandLibrary, setExpandLibrary] = useState(true);
-
+    const [panelWidth, setPanelWidth] = useState(380);
     const [playlist, setPlaylist] = useState([]);
 
     useEffect(() => {
@@ -44,6 +44,8 @@ function PlayerProvider({ children }) {
         setExpandLibrary,
         playlist,
         setPlaylist,
+        panelWidth,
+        setPanelWidth,
     };
     return (
         <playerContext.Provider value={defaultValue}>

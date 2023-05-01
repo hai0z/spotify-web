@@ -9,16 +9,26 @@ import PlaylistCard from "../Library/PlaylistCard";
 import { usePlayerContext } from "../../context/PlayerProvider";
 import { Link, useLocation } from "react-router-dom";
 function LeftPanel() {
-    const { expandLibrary, setExpandLibrary, playlist } = usePlayerContext();
-    const toggleLibrary = () => setExpandLibrary(!expandLibrary);
+    const {
+        expandLibrary,
+        setExpandLibrary,
+        playlist,
+        panelWidth,
+        setPanelWidth,
+    } = usePlayerContext();
+    const toggleLibrary = () => {
+        const s = !expandLibrary;
+        setExpandLibrary(s);
+        setPanelWidth(s ? 400 : 80);
+    };
     const location = useLocation();
 
     return (
         <div
-            className={`bg-[#000000] flex flex-col items-center px-1 py-2 
-                    }`}
+            className={`bg-[#000000] flex flex-col items-center px-1 py-2 flex-shrink-0
+                    `}
             style={{
-                width: expandLibrary ? "400px" : "85px",
+                width: panelWidth,
             }}
         >
             <div className="bg-[#121212] h-28 w-full flex flex-col rounded-md justify-around">
