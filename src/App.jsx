@@ -5,8 +5,14 @@ import Card from "./components/SongCard/Card";
 import Header from "./components/header/Header";
 function App() {
     const [currentColor, setCurrentColor] = useState("#1c0f3f");
-    const { setCurrentSong, playlist, setIsPlaying, isPlaying, expandLibrary } =
-        usePlayerContext();
+    const {
+        setCurrentSong,
+        playlist,
+        setIsPlaying,
+        isPlaying,
+        expandLibrary,
+        currentSong,
+    } = usePlayerContext();
     const bodyRef = useRef();
     const [headerColor, setHeaderColor] = useState("transparent");
     return (
@@ -51,8 +57,12 @@ function App() {
                             <MiniCard
                                 item={item}
                                 onClick={() => {
-                                    setCurrentSong(item);
-                                    setIsPlaying(!isPlaying);
+                                    if (item?.key !== currentSong?.key) {
+                                        setIsPlaying(true);
+                                        setCurrentSong(item);
+                                    } else {
+                                        setIsPlaying(!isPlaying);
+                                    }
                                 }}
                             />
                         </div>
