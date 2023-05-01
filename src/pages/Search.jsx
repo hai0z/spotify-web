@@ -136,11 +136,19 @@ function Search() {
                                     }
                                     `}
                                     onClick={() => {
-                                        setCurrentSong(
+                                        if (
                                             searchResult?.tracks?.hits?.[0]
-                                                ?.track
-                                        );
-                                        setIsPlaying(!isPlaying);
+                                                ?.track?.key !==
+                                            currentSong?.key
+                                        ) {
+                                            setIsPlaying(true);
+                                            setCurrentSong(
+                                                searchResult?.tracks?.hits?.[0]
+                                                    ?.track
+                                            );
+                                        } else {
+                                            setIsPlaying(!isPlaying);
+                                        }
                                     }}
                                 >
                                     {isPlaying &&
@@ -189,12 +197,22 @@ function Search() {
                                                             "opacity-100"
                                                         }`}
                                                         onClick={() => {
-                                                            setIsPlaying(
-                                                                !isPlaying
-                                                            );
-                                                            setCurrentSong(
-                                                                hits?.track
-                                                            );
+                                                            if (
+                                                                hits.track
+                                                                    .key !==
+                                                                currentSong?.key
+                                                            ) {
+                                                                setIsPlaying(
+                                                                    true
+                                                                );
+                                                                setCurrentSong(
+                                                                    hits.track
+                                                                );
+                                                            } else {
+                                                                setIsPlaying(
+                                                                    !isPlaying
+                                                                );
+                                                            }
                                                         }}
                                                     />
                                                 ) : (
@@ -206,12 +224,22 @@ function Search() {
                                                             "opacity-100"
                                                         }`}
                                                         onClick={() => {
-                                                            setIsPlaying(
-                                                                !isPlaying
-                                                            );
-                                                            setCurrentSong(
-                                                                hits?.track
-                                                            );
+                                                            if (
+                                                                hits.track
+                                                                    .key !==
+                                                                currentSong?.key
+                                                            ) {
+                                                                setIsPlaying(
+                                                                    true
+                                                                );
+                                                                setCurrentSong(
+                                                                    hits.track
+                                                                );
+                                                            } else {
+                                                                setIsPlaying(
+                                                                    !isPlaying
+                                                                );
+                                                            }
                                                         }}
                                                     />
                                                 )}
