@@ -5,7 +5,7 @@ import Card from "./components/SongCard/Card";
 import Header from "./components/header/Header";
 function App() {
     const [currentColor, setCurrentColor] = useState("#1c0f3f");
-    const { setCurrentSong, playlist, setIsPlaying, isPlaying } =
+    const { setCurrentSong, playlist, setIsPlaying, isPlaying, expandLibrary } =
         usePlayerContext();
     const bodyRef = useRef();
     const [headerColor, setHeaderColor] = useState("transparent");
@@ -64,30 +64,48 @@ function App() {
                     <p className="text-white text-[28px] font-bold mb-4">
                         Trending
                     </p>
-                    <div className="grid grid-cols-4 xl:grid-cols-5">
-                        {playlist.slice(4, 9).map((song, index) => (
-                            <Card key={index} item={song} />
-                        ))}
+                    <div
+                        className={`grid gap-6 ${
+                            expandLibrary ? "grid-cols-5" : "grid-cols-6"
+                        }`}
+                    >
+                        {playlist
+                            .slice(4, expandLibrary ? 9 : 10)
+                            .map((song, index) => (
+                                <Card key={index} item={song} />
+                            ))}
                     </div>
                 </div>
                 <div className="mt-4">
                     <p className="text-white text-[28px] font-bold mb-4">
                         For you
                     </p>
-                    <div className="grid grid-cols-4 md:grid-cols-5">
-                        {playlist.slice(30, 35).map((song, index) => (
-                            <Card key={index} item={song} />
-                        ))}
+                    <div
+                        className={`grid gap-6 ${
+                            expandLibrary ? "grid-cols-5" : "grid-cols-6"
+                        }`}
+                    >
+                        {playlist
+                            .slice(30, expandLibrary ? 35 : 36)
+                            .map((song, index) => (
+                                <Card key={index} item={song} />
+                            ))}
                     </div>
                 </div>
                 <div className="mt-4">
                     <p className="text-white text-[28px] font-bold mb-4">
                         Top mixes
                     </p>
-                    <div className="grid grid-cols-4 md:grid-cols-5">
-                        {playlist.slice(40, 45).map((song, index) => (
-                            <Card key={index} item={song} />
-                        ))}
+                    <div
+                        className={`grid gap-6 ${
+                            expandLibrary ? "grid-cols-5" : "grid-cols-6"
+                        }`}
+                    >
+                        {playlist
+                            .slice(40, expandLibrary ? 45 : 46)
+                            .map((song, index) => (
+                                <Card key={index} item={song} />
+                            ))}
                     </div>
                 </div>
             </div>

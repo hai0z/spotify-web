@@ -19,12 +19,6 @@ function Player() {
     const progress = useRef();
     const audioRef = useRef();
     const [duration, setDuration] = useState(0);
-    useEffect(() => {
-        if (currentSong !== null) {
-            audioRef.current.play();
-            setIsPlaying(true);
-        }
-    }, [currentSong, setIsPlaying, audioRef]);
 
     const handlePlayPause = () => {
         if (isPlaying) {

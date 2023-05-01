@@ -7,11 +7,11 @@ function Card({ item }) {
     const { setCurrentSong, isPlaying, currentSong, setIsPlaying } =
         usePlayerContext();
     return (
-        <div className="w-52  h-72 bg-[#282828] flex flex-col justify-center rounded-md mx-2 cursor-pointer relative group hover:bg-[#404040] duration-300">
+        <div className="w-48 h-64 bg-[#282828] flex flex-col justify-center rounded-md  cursor-pointer relative group hover:bg-[#404040] duration-300">
             <img
                 src={item?.images?.coverart}
                 alt=""
-                className="w-44 h-44  rounded-md self-center relative"
+                className="w-36 h-36  rounded-md self-center relative"
             />
             <div className="ml-4 mt-3">
                 <p className="text-white font-semibold text-[16px] truncate">

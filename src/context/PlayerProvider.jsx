@@ -12,6 +12,13 @@ function PlayerProvider({ children }) {
     const [playlist, setPlaylist] = useState([]);
 
     useEffect(() => {
+        setCurrentSong(JSON.parse(localStorage.getItem("currentPlay")));
+    }, []),
+        useEffect(() => {
+            localStorage.setItem("currentPlay", JSON.stringify(currentSong));
+        }, [currentSong]);
+
+    useEffect(() => {
         const getPlaylist = async () => {
             const options = {
                 method: "GET",
