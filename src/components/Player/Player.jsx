@@ -112,7 +112,7 @@ function Player() {
                         className="w-full h-1 bg-red-500"
                         step={0.1}
                         min={0}
-                        max={Math.floor(audioRef.current?.duration)}
+                        max={Math.floor(audioRef.current?.duration).toString()}
                         onInput={(e) =>
                             (audioRef.current.currentTime =
                                 e.currentTarget.value)

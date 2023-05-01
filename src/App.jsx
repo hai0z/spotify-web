@@ -43,14 +43,14 @@ function App() {
                     Good evening
                 </h1>
                 <div className="w-full grid grid-cols-3 gap-4 mt-2">
-                    {playlist.slice(20, 26)?.map((item, index) => (
+                    {playlist.slice(6, 12)?.map((item, index) => (
                         <div
                             key={index}
                             onMouseEnter={() => {
                                 setCurrentColor(
                                     `#${
                                         item?.images?.joecolor?.split(":")[5]
-                                    }80`
+                                    }90`
                                 );
                             }}
                         >

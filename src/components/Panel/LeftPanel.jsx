@@ -9,13 +9,8 @@ import PlaylistCard from "../Library/PlaylistCard";
 import { usePlayerContext } from "../../context/PlayerProvider";
 import { Link, useLocation } from "react-router-dom";
 function LeftPanel() {
-    const {
-        expandLibrary,
-        setExpandLibrary,
-        playlist,
-        panelWidth,
-        setPanelWidth,
-    } = usePlayerContext();
+    const { expandLibrary, setExpandLibrary, panelWidth, setPanelWidth } =
+        usePlayerContext();
     const toggleLibrary = () => {
         const s = !expandLibrary;
         setExpandLibrary(s);
@@ -164,15 +159,9 @@ function LeftPanel() {
                             Recents
                         </span>
                     </div>
-                    <div className="mt-4">
-                        {playlist.slice(30, 35).map((item, index) => (
-                            <PlaylistCard
-                                key={index}
-                                item={item}
-                                expanded={expandLibrary}
-                            />
-                        ))}
-                    </div>
+                    <Link to={"/collection"} className="mt-4">
+                        <PlaylistCard expanded={expandLibrary} />
+                    </Link>
                 </div>
             </div>
         </div>

@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext, createContext, useState, useEffect } from "react";
-import axios from "axios";
 const playerContext = createContext();
-
+import { db } from "../firebase/index";
 function PlayerProvider({ children }) {
     const [currentSong, setCurrentSong] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -12,36 +11,24 @@ function PlayerProvider({ children }) {
     const [playlist, setPlaylist] = useState([]);
 
     useEffect(() => {
-        setCurrentSong(JSON.parse(localStorage.getItem("currentPlay")));
-    }, []),
-        useEffect(() => {
-            localStorage.setItem("currentPlay", JSON.stringify(currentSong));
-        }, [currentSong]);
-
-    useEffect(() => {
-        const getPlaylist = async () => {
-            const options = {
-                method: "GET",
-                url: "https://shazam-core.p.rapidapi.com/v1/charts/country",
-                params: { country_code: "VN" },
-                headers: {
-                    "content-type": "application/octet-stream",
-                    "X-RapidAPI-Key":
-                        "52ebb81b22mshc9be28dfa4b3296p16ee67jsn63e7322d5732",
-                    "X-RapidAPI-Host": "shazam-core.p.rapidapi.com",
-                },
-            };
-
-            try {
-                const response = await axios.request(options);
-                setPlaylist(response.data);
-            } catch (error) {
-                console.error(error);
-            }
+        const getSong = async () => {
+            const q = db.query(db.collection(db.getFirestore(), "likedList"));
+            const track = [];
+            const querySnapshot = await db.getDocs(q);
+            querySnapshot.forEach((doc) => {
+                track.push(doc.data());
+            });
+            setPlaylist(track.sort(() => 0.5 - Math.random()));
         };
-        getPlaylist();
+        getSong();
     }, []);
 
+    useEffect(() => {
+        setCurrentSong(JSON.parse(localStorage.getItem("currentPlay")));
+    }, []);
+    useEffect(() => {
+        localStorage.setItem("currentPlay", JSON.stringify(currentSong));
+    }, [currentSong]);
     const defaultValue = {
         currentSong,
         setCurrentSong,

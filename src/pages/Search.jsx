@@ -80,6 +80,22 @@ function Search() {
         "RADAR",
         "Discover",
     ];
+    const togglePlay1 = () => {
+        if (searchResult?.tracks?.hits?.[0]?.track?.key !== currentSong?.key) {
+            setIsPlaying(true);
+            setCurrentSong(searchResult?.tracks?.hits?.[0]?.track);
+        } else {
+            setIsPlaying(!isPlaying);
+        }
+    };
+    const togglePlay2 = (obj) => {
+        if (obj.track.key !== currentSong?.key) {
+            setIsPlaying(true);
+            setCurrentSong(obj.track);
+        } else {
+            setIsPlaying(!isPlaying);
+        }
+    };
     return (
         <div className="w-full bg-[#121212] my-2 pb-4 rounded-md overflow-y-auto mr-2">
             <div className="ml-6 mt-2">
@@ -98,7 +114,7 @@ function Search() {
                             <p className="text-white text-2xl font-bold mb-4 ">
                                 Top Result
                             </p>
-                            <div className="bg-[#404040] flex flex-col rounded-md p-6 cursor-pointer relative group">
+                            <div className="bg-[#161616] flex flex-col rounded-md p-6 cursor-pointer relative group hover:bg-[#282828]">
                                 <img
                                     src={
                                         searchResult?.tracks?.hits?.[0]?.track
@@ -107,7 +123,7 @@ function Search() {
                                     alt=""
                                     className="w-24 h-24 rounded-sm"
                                 />
-                                {/* <p>{searchResult?.tracks?.hits?.[0]?.track?.hub.actions?.[1]?.uri}</p> */}
+
                                 <p className="text-white font-bold text-3xl mt-4">
                                     {
                                         searchResult?.tracks?.hits?.[0]?.track
@@ -121,7 +137,7 @@ function Search() {
                                                 ?.track?.subtitle
                                         }
                                     </span>
-                                    <span className="text-white py-1 px-3 rounded-full bg-black/60 font-semibold">
+                                    <span className="text-white flex justify-center items-center px-3 py-1 rounded-full bg-black/60 font-semibold">
                                         Song
                                     </span>
                                 </div>
@@ -135,21 +151,7 @@ function Search() {
                                         "opacity-100 bottom-4"
                                     }
                                     `}
-                                    onClick={() => {
-                                        if (
-                                            searchResult?.tracks?.hits?.[0]
-                                                ?.track?.key !==
-                                            currentSong?.key
-                                        ) {
-                                            setIsPlaying(true);
-                                            setCurrentSong(
-                                                searchResult?.tracks?.hits?.[0]
-                                                    ?.track
-                                            );
-                                        } else {
-                                            setIsPlaying(!isPlaying);
-                                        }
-                                    }}
+                                    onClick={() => togglePlay1(searchResult)}
                                 >
                                     {isPlaying &&
                                     searchResult?.tracks?.hits?.[0]?.track
@@ -196,24 +198,9 @@ function Search() {
                                                                     .key &&
                                                             "opacity-100"
                                                         }`}
-                                                        onClick={() => {
-                                                            if (
-                                                                hits.track
-                                                                    .key !==
-                                                                currentSong?.key
-                                                            ) {
-                                                                setIsPlaying(
-                                                                    true
-                                                                );
-                                                                setCurrentSong(
-                                                                    hits.track
-                                                                );
-                                                            } else {
-                                                                setIsPlaying(
-                                                                    !isPlaying
-                                                                );
-                                                            }
-                                                        }}
+                                                        onClick={() =>
+                                                            togglePlay2(hits)
+                                                        }
                                                     />
                                                 ) : (
                                                     <BsFillPlayFill
@@ -223,24 +210,9 @@ function Search() {
                                                                     .key &&
                                                             "opacity-100"
                                                         }`}
-                                                        onClick={() => {
-                                                            if (
-                                                                hits.track
-                                                                    .key !==
-                                                                currentSong?.key
-                                                            ) {
-                                                                setIsPlaying(
-                                                                    true
-                                                                );
-                                                                setCurrentSong(
-                                                                    hits.track
-                                                                );
-                                                            } else {
-                                                                setIsPlaying(
-                                                                    !isPlaying
-                                                                );
-                                                            }
-                                                        }}
+                                                        onClick={() =>
+                                                            togglePlay2(hits)
+                                                        }
                                                     />
                                                 )}
                                             </div>
