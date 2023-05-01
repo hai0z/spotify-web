@@ -246,7 +246,13 @@ function Search() {
                                             </div>
 
                                             <div className="ml-2">
-                                                <p className="text-white">
+                                                <p
+                                                    className={`text-white ${
+                                                        hits?.track?.key ===
+                                                            currentSong?.key &&
+                                                        "text-green-600"
+                                                    }`}
+                                                >
                                                     {hits?.track?.title}
                                                 </p>
                                                 <p className="text-white/50">
