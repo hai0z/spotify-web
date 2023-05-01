@@ -22,14 +22,18 @@ function Card({ item }) {
                 </p>
             </div>
             <div
-                className={`bg-[#1fdf64] w-12 h-12 rounded-full absolute right-6 bottom-20 justify-center flex items-center opacity-0 group-hover:opacity-100  transition-all duration-300 group-hover:bottom-24 hover:scale-105 ${
+                className={`bg-[#1fdf64] w-12 h-12 rounded-full absolute right-8 shadow-md bottom-20 justify-center flex items-center opacity-0 group-hover:opacity-100  transition-all duration-300 group-hover:bottom-24 hover:scale-105 ${
                     currentSong?.key === item?.key &&
                     isPlaying &&
                     "opacity-100 bottom-24"
                 }`}
                 onClick={() => {
-                    setCurrentSong(item);
-                    setIsPlaying(!isPlaying);
+                    if (item?.key !== currentSong?.key) {
+                        setIsPlaying(true);
+                        setCurrentSong(item);
+                    } else {
+                        setIsPlaying(!isPlaying);
+                    }
                 }}
             >
                 {isPlaying && item?.key === currentSong?.key ? (

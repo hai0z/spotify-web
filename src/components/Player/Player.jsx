@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { BiShuffle, BiSkipNext, BiSkipPrevious } from "react-icons/bi";
+import { RxSpeakerLoud } from "react-icons/rx";
 import { RxLoop } from "react-icons/rx";
 import { usePlayerContext } from "../../context/PlayerProvider";
 /* eslint-disable react/prop-types */
@@ -29,13 +30,14 @@ function Player() {
             audioRef.current.play();
         }
     };
+
     useEffect(() => {
         if (isPlaying) {
             audioRef.current.play();
         } else {
             audioRef.current.pause();
         }
-    }, [isPlaying]);
+    }, [isPlaying, currentSong]);
 
     return (
         <div className="w-full bg-black h-20 absolute bottom-0 items-center flex flex-row justify-between px-4">
@@ -63,6 +65,7 @@ function Player() {
                     onTimeUpdate={(e) => {
                         setCurrentTime(e.currentTarget.currentTime);
                         progress.current.value = currentTime;
+                        localStorage.setItem("currentPosition", currentTime);
                     }}
                     onLoadedData={(e) => setDuration(e.currentTarget.duration)}
                 />
@@ -98,13 +101,16 @@ function Player() {
                 </div>
                 <div className="flex flex-row justify-between items-center w-[500px] gap-2 mt-2">
                     <span className="text-gray-200  text-[12px]">
-                        {caculateTime(currentTime)}
+                        {caculateTime(localStorage.getItem("currentPosition"))}
                     </span>
                     <input
                         ref={progress}
                         type="range"
+                        defaultValue={
+                            localStorage.getItem("currentPosition") || 0
+                        }
                         className="w-full h-1 bg-red-500"
-                        step={0.25}
+                        step={0.1}
                         min={0}
                         max={Math.floor(audioRef.current?.duration)}
                         onInput={(e) =>
@@ -117,7 +123,19 @@ function Player() {
                     </span>
                 </div>
             </div>
-            <div className="flex flex-row w-64  h-full"></div>
+            <div className="flex flex-row w-64  h-full items-center">
+                <RxSpeakerLoud className="text-white font-bold" />
+                <input
+                    type="range"
+                    className="h-0.5 ml-2"
+                    defaultValue={50}
+                    max={100}
+                    min={0}
+                    onInput={(e) =>
+                        (audioRef.current.volume = e.currentTarget.value / 100)
+                    }
+                />
+            </div>
         </div>
     );
 }
