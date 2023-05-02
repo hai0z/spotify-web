@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { usePlayerContext } from "../../context/PlayerProvider";
+import { useNavigate } from "react-router-dom";
 function Header({ color }) {
     const { panelWidth, expandLibrary } = usePlayerContext();
+    const navigate = useNavigate();
     return (
         <div
-            className="flex-row h-16 fixed z-20 flex items-center justify-between rounded-md overflow-hidden px-6"
+            className="flex-row h-16 fixed z-20 flex items-center justify-between rounded-t-md overflow-hidden px-6"
             style={{
                 backgroundColor: color,
                 width: expandLibrary
@@ -14,10 +16,16 @@ function Header({ color }) {
             }}
         >
             <div className="flex flex-row items-center gap-3">
-                <div className="w-8 h-8 rounded-full flex justify-center items-center bg-black/30">
+                <div
+                    className="w-8 h-8 rounded-full flex justify-center items-center bg-black/30 cursor-pointer"
+                    onClick={() => navigate(-1)}
+                >
                     <MdKeyboardArrowLeft className="text-[24px] text-white" />
                 </div>
-                <div className="w-8 h-8 rounded-full flex justify-center items-center bg-black/30">
+                <div
+                    className="w-8 h-8 rounded-full flex justify-center items-center bg-black/30 cursor-pointer"
+                    onClick={() => navigate(1)}
+                >
                     <MdKeyboardArrowRight className="text-[24px] text-white" />
                 </div>
             </div>

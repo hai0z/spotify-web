@@ -19,9 +19,12 @@ function PlayerProvider({ children }) {
     }, []);
 
     useEffect(() => {
-        localStorage.setItem("isLoop", isLoop);
-        localStorage.setItem("isShuffle", isShuffle);
-    }, [isLoop, isShuffle]);
+        localStorage.setItem("isLoop", !!isLoop);
+    }, [isLoop]);
+
+    useEffect(() => {
+        localStorage.setItem("isShuffle", !!isShuffle);
+    }, [isShuffle]);
 
     useEffect(() => {
         const getSong = async () => {
@@ -42,6 +45,7 @@ function PlayerProvider({ children }) {
     useEffect(() => {
         localStorage.setItem("currentPlay", JSON.stringify(currentSong));
     }, [currentSong]);
+
     const defaultValue = {
         currentSong,
         setCurrentSong,
@@ -60,7 +64,7 @@ function PlayerProvider({ children }) {
     };
     return (
         <playerContext.Provider value={defaultValue}>
-            <div>{children}</div>
+            {children}
         </playerContext.Provider>
     );
 }

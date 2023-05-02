@@ -8,6 +8,7 @@ import LeftPanel from "./components/Panel/LeftPanel.jsx";
 import Player from "./components/Player/Player.jsx";
 import Search from "./pages/Search.jsx";
 import LikedSong from "./pages/LikedSong.jsx";
+import Lyric from "./pages/Lyric.jsx";
 
 const MainLayout = () => {
     return (
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             {
                 path: "/collection",
                 element: <LikedSong />,
+            },
+            {
+                path: "/lyrics",
+                element: <Lyric />,
             },
         ],
     },

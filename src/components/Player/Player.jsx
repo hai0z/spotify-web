@@ -4,7 +4,9 @@ import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { BiShuffle, BiSkipNext, BiSkipPrevious } from "react-icons/bi";
 import { RxSpeakerLoud } from "react-icons/rx";
 import { RxLoop } from "react-icons/rx";
+import { TbMicrophone2 } from "react-icons/tb";
 import { usePlayerContext } from "../../context/PlayerProvider";
+import { Link, useNavigate } from "react-router-dom";
 /* eslint-disable react/prop-types */
 const caculateTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -31,6 +33,7 @@ function Player() {
     const audioRef = useRef();
     const [duration, setDuration] = useState(0);
 
+    const navigate = useNavigate();
     const handlePlayPause = () => {
         if (isPlaying) {
             setIsPlaying(false);
@@ -184,6 +187,25 @@ function Player() {
                 </div>
             </div>
             <div className="flex flex-row w-64  h-full items-center">
+                {currentSong?.sections?.[1]?.text?.length > 0 && (
+                    <TbMicrophone2
+                        className="font-bold text-xl mr-4 cursor-pointer"
+                        style={{
+                            color:
+                                location.pathname === "/lyrics"
+                                    ? "green"
+                                    : "white",
+                        }}
+                        onClick={() => {
+                            if (location.pathname !== "/lyrics") {
+                                navigate("/lyrics");
+                            } else {
+                                navigate(-1);
+                            }
+                        }}
+                    />
+                )}
+
                 <RxSpeakerLoud className="text-white font-bold" />
                 <input
                     type="range"
