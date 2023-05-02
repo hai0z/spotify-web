@@ -161,7 +161,7 @@ function LeftPanel() {
                     </div>
                     <Link
                         to={"/collection"}
-                        className={`mt-4 hover:bg-[#282828] rounded-md -mx-2 mr-2 ${
+                        className={`mt-4 hover:bg-[#282828] rounded-md  ${
                             location.pathname === "/collection" &&
                             "bg-[#282828]"
                         }`}

@@ -15,8 +15,17 @@ const caculateTime = (seconds) => {
     return timeString;
 };
 function Player() {
-    const { isPlaying, currentSong, setIsPlaying, playlist, setCurrentSong } =
-        usePlayerContext();
+    const {
+        isPlaying,
+        currentSong,
+        setIsPlaying,
+        playlist,
+        setCurrentSong,
+        setIsLoop,
+        isLoop,
+        setIsShuffle,
+        isShuffle,
+    } = usePlayerContext();
     const [currentTime, setCurrentTime] = useState(0);
     const progress = useRef();
     const audioRef = useRef();
@@ -62,6 +71,8 @@ function Player() {
         }
         setIsPlaying(true);
     };
+    const toggleLoop = () => setIsLoop(!isLoop);
+    const toggleShuffle = () => setIsShuffle(!isShuffle);
     useEffect(() => {
         if (isPlaying) {
             audioRef.current.play();
@@ -101,8 +112,14 @@ function Player() {
                     onLoadedData={(e) => setDuration(e.currentTarget.duration)}
                 />
                 <div className="flex flex-row items-center justify-between mt-1 gap-4">
-                    <div className="w-8 h-8  rounded-full flex justify-center items-center cursor-pointer">
-                        <BiShuffle className="text-[24px] text-gray-200" />
+                    <div
+                        className="w-8 h-8  rounded-full flex justify-center items-center cursor-pointer"
+                        onClick={toggleShuffle}
+                    >
+                        <BiShuffle
+                            className="text-[24px] text-gray-200"
+                            style={{ color: isShuffle == true && "green" }}
+                        />
                     </div>
                     <div
                         className="w-8 h-8 rounded-full flex justify-center items-center cursor-pointer"
@@ -132,8 +149,14 @@ function Player() {
                     >
                         <BiSkipNext className="text-[30px] text-gray-200" />
                     </div>
-                    <div className="w-8 h-8 rounded-full flex justify-center items-center cursor-pointer">
-                        <RxLoop className="text-[24px] text-gray-200" />
+                    <div
+                        className="w-8 h-8 rounded-full flex justify-center items-center cursor-pointer"
+                        onClick={toggleLoop}
+                    >
+                        <RxLoop
+                            className="text-[24px] text-gray-200"
+                            style={{ color: isLoop == true && "green" }}
+                        />
                     </div>
                 </div>
                 <div className="flex flex-row justify-between items-center w-[500px] gap-2 mt-2">

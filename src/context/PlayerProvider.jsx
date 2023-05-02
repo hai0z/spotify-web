@@ -10,6 +10,19 @@ function PlayerProvider({ children }) {
     const [panelWidth, setPanelWidth] = useState(380);
     const [playlist, setPlaylist] = useState([]);
 
+    const [isLoop, setIsLoop] = useState(false);
+    const [isShuffle, setIsShuffle] = useState(false);
+
+    useEffect(() => {
+        setIsLoop(localStorage.getItem("isLoop"));
+        setIsShuffle(localStorage.getItem("isShuffle"));
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("isLoop", isLoop);
+        localStorage.setItem("isShuffle", isShuffle);
+    }, [isLoop, isShuffle]);
+
     useEffect(() => {
         const getSong = async () => {
             const q = db.query(db.collection(db.getFirestore(), "likedList"));
@@ -40,6 +53,10 @@ function PlayerProvider({ children }) {
         setPlaylist,
         panelWidth,
         setPanelWidth,
+        isLoop,
+        setIsLoop,
+        isShuffle,
+        setIsShuffle,
     };
     return (
         <playerContext.Provider value={defaultValue}>

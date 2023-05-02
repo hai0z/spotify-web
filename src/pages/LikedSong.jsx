@@ -67,12 +67,11 @@ function LikedSong() {
                                 className="grid grid-cols-3 mt-4 pl-4 border-b-[0.2px]mx-4 hover:bg-[#60606080] p-3 rounded-md group cursor-pointer"
                             >
                                 <div className="flex flex-row items-center">
-                                    <span className="mr-4 text-white/50 font-bold group-hover:hidden">
+                                    <span className="mr-4 text-white/50 font-bold group-hover:hidden w-12">
                                         {index + 1}
                                     </span>
-
                                     <span
-                                        className="hidden group-hover:block mr-3"
+                                        className="hidden group-hover:block mr-3 w-12"
                                         onClick={() => {
                                             if (pl.key !== currentSong?.key) {
                                                 setIsPlaying(true);
@@ -84,9 +83,9 @@ function LikedSong() {
                                     >
                                         {currentSong?.key == pl.key &&
                                         isPlaying ? (
-                                            <BsFillPauseFill className="text-[#fff] text-[16px]" />
+                                            <BsFillPauseFill className="text-[#fff] text-[18px]" />
                                         ) : (
-                                            <BsFillPlayFill className="text-[#fff] text-[16px]" />
+                                            <BsFillPlayFill className="text-[#fff] text-[18px]" />
                                         )}
                                     </span>
                                     <img
