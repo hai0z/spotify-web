@@ -15,7 +15,8 @@ const caculateTime = (seconds) => {
     return timeString;
 };
 function Player() {
-    const { isPlaying, currentSong, setIsPlaying } = usePlayerContext();
+    const { isPlaying, currentSong, setIsPlaying, playlist, setCurrentSong } =
+        usePlayerContext();
     const [currentTime, setCurrentTime] = useState(0);
     const progress = useRef();
     const audioRef = useRef();
@@ -31,6 +32,36 @@ function Player() {
         }
     };
 
+    const handleNextSong = () => {
+        const currentIndexSong = playlist.findIndex(
+            (i) => i?.key == currentSong?.key
+        );
+        if (currentIndexSong == -1) {
+            setCurrentSong(playlist[0]);
+        } else {
+            if (currentIndexSong < playlist.length) {
+                setCurrentSong(playlist[currentIndexSong + 1]);
+            } else {
+                setCurrentSong(playlist[0]);
+            }
+        }
+        setIsPlaying(true);
+    };
+    const handlePrevSong = () => {
+        const currentIndexSong = playlist.findIndex(
+            (i) => i?.key == currentSong?.key
+        );
+        if (currentIndexSong == -1) {
+            setCurrentSong(playlist[0]);
+        } else {
+            if (currentIndexSong >= 1) {
+                setCurrentSong(playlist[currentIndexSong - 1]);
+            } else {
+                setCurrentSong(playlist[0]);
+            }
+        }
+        setIsPlaying(true);
+    };
     useEffect(() => {
         if (isPlaying) {
             audioRef.current.play();
@@ -48,7 +79,7 @@ function Player() {
                     className="h-16 w-16 "
                 />
                 <div className="flex flex-col">
-                    <span className="text-white ml-2 font-semibold truncate">
+                    <span className="text-white ml-2 font-semibold truncate w-72">
                         {currentSong?.title}
                     </span>
                     <span className="text-[12px] text-[#ffffff80] ml-2 truncate">
@@ -73,7 +104,10 @@ function Player() {
                     <div className="w-8 h-8  rounded-full flex justify-center items-center cursor-pointer">
                         <BiShuffle className="text-[24px] text-gray-200" />
                     </div>
-                    <div className="w-8 h-8 rounded-full flex justify-center items-center cursor-pointer">
+                    <div
+                        className="w-8 h-8 rounded-full flex justify-center items-center cursor-pointer"
+                        onClick={handlePrevSong}
+                    >
                         <BiSkipPrevious className="text-[30px] text-gray-200" />
                     </div>
                     <div
@@ -92,7 +126,10 @@ function Player() {
                             />
                         )}
                     </div>
-                    <div className="w-8 h-8 justify-center items-center cursor-pointer flex">
+                    <div
+                        className="w-8 h-8 justify-center items-center cursor-pointer flex"
+                        onClick={handleNextSong}
+                    >
                         <BiSkipNext className="text-[30px] text-gray-200" />
                     </div>
                     <div className="w-8 h-8 rounded-full flex justify-center items-center cursor-pointer">

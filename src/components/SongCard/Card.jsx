@@ -14,10 +14,10 @@ function Card({ item }) {
                 className="w-36 h-36  rounded-md self-center relative"
             />
             <div className="ml-4 mt-3">
-                <p className="text-white font-semibold text-[16px] truncate">
+                <p className="text-white font-semibold text-[16px] truncate w-40">
                     {item?.title}
                 </p>
-                <p className="text-white/50 text-left font-mono truncate mt-1">
+                <p className="text-white/50 text-left font-mono font-semibold truncate mt-1 text-[14px]">
                     {item?.subtitle}
                 </p>
             </div>

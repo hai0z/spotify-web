@@ -159,7 +159,13 @@ function LeftPanel() {
                             Recents
                         </span>
                     </div>
-                    <Link to={"/collection"} className="mt-4">
+                    <Link
+                        to={"/collection"}
+                        className={`mt-4 hover:bg-[#282828] rounded-md -mx-2 mr-2 ${
+                            location.pathname === "/collection" &&
+                            "bg-[#282828]"
+                        }`}
+                    >
                         <PlaylistCard expanded={expandLibrary} />
                     </Link>
                 </div>

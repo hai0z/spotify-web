@@ -80,7 +80,7 @@ function App() {
                         }`}
                     >
                         {playlist
-                            .slice(4, expandLibrary ? 9 : 10)
+                            .slice(60, expandLibrary ? 65 : 66)
                             .map((song, index) => (
                                 <Card key={index} item={song} />
                             ))}

@@ -5,7 +5,7 @@ function PlaylistCard({ expanded }) {
     const { playlist } = usePlayerContext();
     return (
         <div
-            className="flex flex-row mb-3 rounded-sm cursor-pointer"
+            className="flex flex-row rounded-md cursor-pointer items-center p-2 w-full"
             style={{
                 justifyContent: !expanded && "center",
             }}
