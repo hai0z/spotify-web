@@ -174,7 +174,8 @@ function Search() {
                                     .map((hits) => (
                                         <div
                                             key={hits.track.key}
-                                            className="flex flex-row hover:bg-[#282828] py-1 pl-3 items-center rounded-md group relative"
+                                            className="flex flex-row hover:bg-[#282828] py-1 
+                                            pl-3 items-center rounded-md group relative"
                                         >
                                             <img
                                                 src={
@@ -247,7 +248,8 @@ function Search() {
                                 return (
                                     <div
                                         key={index}
-                                        className="flex flex-col w-52 h-72 bg-[#202020] rounded-md justify-center items-center"
+                                        className="flex flex-col w-52 h-72 bg-[#161616] hover:bg-[#282828] rounded-md 
+                                        justify-center items-center"
                                     >
                                         <img
                                             src={a?.artist?.avatar}

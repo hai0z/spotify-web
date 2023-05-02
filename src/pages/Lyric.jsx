@@ -22,7 +22,7 @@ function Lyric() {
                                 return (
                                     <p
                                         key={index}
-                                        className="text-left font-bold text-white drop-shadow-lg shadow-white    text-3xl p-2 cursor-pointer hover:text-amber-300"
+                                        className="text-left font-bold text-white drop-shadow-lg shadow-white text-3xl p-2 cursor-pointer hover:text-amber-300"
                                     >
                                         {text}
                                     </p>
