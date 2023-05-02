@@ -53,7 +53,7 @@ function LikedSong() {
                 </div>
                 <div className="grid grid-cols-3 mt-4 pl-4 border-b-[0.2px] border-b-white/40 pb-2 mx-4">
                     <p className="text-white/50 font-semibold -ml-4">
-                        <span className="mr-4">#</span>
+                        <span className="mr-8">#</span>
                         <span>Title</span>
                     </p>
                     <p className="text-white/50 font-semibold">Album</p>
@@ -64,7 +64,7 @@ function LikedSong() {
                         return (
                             <div
                                 key={pl.key}
-                                className="grid grid-cols-3 mt-4 pl-4 border-b-[0.2px]mx-4 hover:bg-[#60606080] p-3 rounded-md group cursor-pointer"
+                                className="grid grid-cols-3 mt-4 pl-4 border-b-[0.2px]mx-4 hover:bg-[#60606080] p-3 rounded-md group cursor-pointer items-center gap-6"
                             >
                                 <div className="flex flex-row items-center">
                                     <span className="mr-4 text-white/50 font-bold group-hover:hidden w-12">
@@ -93,7 +93,7 @@ function LikedSong() {
                                         alt=""
                                         className="w-12 h-12"
                                     />
-                                    <div className="flex flex-col ml-2 ">
+                                    <div className="flex flex-col ml-2 justify-center ">
                                         <span
                                             className="truncate w-64 text-white font-semibold"
                                             style={{
@@ -105,15 +105,15 @@ function LikedSong() {
                                         >
                                             {pl.title}
                                         </span>
-                                        <span className="truncate w-40 text-white/50 text-[14px]">
+                                        <span className="truncate  text-white/60 text-[14px] group-hover:text-white">
                                             {pl.subtitle}
                                         </span>
                                     </div>
                                 </div>
-                                <h1 className="font-semibold text-white/50 truncate w-56 text-[14px]">
+                                <h1 className="font-semibold text-white/60 truncate w-56 text-[14px] group-hover:text-white">
                                     {pl.title}
                                 </h1>
-                                <h1 className="font-semibold text-white/50 text-[14px]">
+                                <h1 className="font-semibold text-white/60 text-[14px] group-hover:text-white">
                                     {Math.floor(Math.random() * 4 + 1)} Weeks
                                     ago
                                 </h1>

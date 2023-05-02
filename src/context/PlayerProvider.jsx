@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useContext, createContext, useState, useEffect } from "react";
-const playerContext = createContext();
 import { db } from "../firebase/index";
+
+const playerContext = createContext();
+
 function PlayerProvider({ children }) {
     const [currentSong, setCurrentSong] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);

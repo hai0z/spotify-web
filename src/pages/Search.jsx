@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-extra-boolean-cast */
@@ -62,7 +63,7 @@ function Search() {
             }
         };
         if (debouceSearch) search();
-    }, [debouceSearch, searchValue]);
+    }, [debouceSearch]);
 
     const genres = [
         "Podcast",
@@ -236,9 +237,34 @@ function Search() {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <p>Artis</p>
-                        <div></div>
+                    <p className="text-2xl text-white pl-6 pb-4 mt-4 font-bold">
+                        Artists
+                    </p>
+                    <div className="grid grid-cols-5 gap-4 px-6 cursor-pointer">
+                        {searchResult?.artists?.hits
+                            ?.slice(0, 5)
+                            .map((a, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className="flex flex-col w-52 h-72 bg-[#202020] rounded-md justify-center items-center"
+                                    >
+                                        <img
+                                            src={a?.artist?.avatar}
+                                            alt=""
+                                            className="w-44 h-44 rounded-full"
+                                        />
+                                        <div className="text-white self-start pl-4 space-y-2">
+                                            <p className="text-white">
+                                                {a.artist.name}
+                                            </p>
+                                            <span className="text-white">
+                                                Artist
+                                            </span>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                     </div>
                 </div>
             ) : (
