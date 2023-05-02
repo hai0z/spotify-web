@@ -52,12 +52,12 @@ function LikedSong() {
                     )}
                 </div>
                 <div className="grid grid-cols-3 mt-4 pl-4 border-b-[0.2px] border-b-white/40 pb-2 mx-4">
-                    <p className="text-white/50 font-bold -ml-4">
+                    <p className="text-white/50 font-semibold -ml-4">
                         <span className="mr-4">#</span>
                         <span>Title</span>
                     </p>
-                    <p className="text-white/50 font-bold">Album</p>
-                    <p className="text-white/50 font-bold">Date added</p>
+                    <p className="text-white/50 font-semibold">Album</p>
+                    <p className="text-white/50 font-semibold">Date added</p>
                 </div>
                 <div>
                     {playlist?.map((pl, index) => {
@@ -105,15 +105,15 @@ function LikedSong() {
                                         >
                                             {pl.title}
                                         </span>
-                                        <span className="truncate w-40 text-white/50">
+                                        <span className="truncate w-40 text-white/50 text-[14px]">
                                             {pl.subtitle}
                                         </span>
                                     </div>
                                 </div>
-                                <h1 className="font-semibold text-white/50 truncate w-56">
+                                <h1 className="font-semibold text-white/50 truncate w-56 text-[14px]">
                                     {pl.title}
                                 </h1>
-                                <h1 className="font-semibold text-white/50">
+                                <h1 className="font-semibold text-white/50 text-[14px]">
                                     {Math.floor(Math.random() * 4 + 1)} Weeks
                                     ago
                                 </h1>

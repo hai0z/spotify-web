@@ -48,7 +48,7 @@ function Search() {
                 headers: {
                     "content-type": "application/octet-stream",
                     "X-RapidAPI-Key":
-                        "52ebb81b22mshc9be28dfa4b3296p16ee67jsn63e7322d5732",
+                        "25afd00c31msh690f22c6a3516c0p1799adjsn0eade0e56e0b",
                     "X-RapidAPI-Host": "shazam-core.p.rapidapi.com",
                 },
             };

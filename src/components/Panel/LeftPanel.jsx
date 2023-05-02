@@ -8,6 +8,7 @@ import { IoIosAdd } from "react-icons/io";
 import PlaylistCard from "../Library/PlaylistCard";
 import { usePlayerContext } from "../../context/PlayerProvider";
 import { Link, useLocation } from "react-router-dom";
+
 function LeftPanel() {
     const { expandLibrary, setExpandLibrary, panelWidth, setPanelWidth } =
         usePlayerContext();
