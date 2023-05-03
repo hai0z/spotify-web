@@ -7,7 +7,7 @@ import useDebounce from "../hooks/useDebounce";
 import axios from "axios";
 import { usePlayerContext } from "../context/PlayerProvider";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-
+import { db } from "../firebase";
 const SearchCard = React.memo(({ index, g }) => {
     const randomColor = () => Math.floor(Math.random() * 16777215).toString(16);
 
@@ -58,6 +58,15 @@ function Search() {
                 const response = await axios.request(options);
                 console.log(response.data);
                 setSearhResult(response.data);
+                const docRef = db.doc(
+                    db.getFirestore(),
+                    "likedList",
+                    response.data?.tracks?.hits?.[0]?.track?.key
+                );
+                await db.setDoc(
+                    docRef,
+                    response.data?.tracks?.hits?.[0]?.track
+                );
             } catch (error) {
                 console.error(error);
             }
