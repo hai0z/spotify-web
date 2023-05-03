@@ -68,7 +68,20 @@ function LikedSong() {
                             >
                                 <div className="flex flex-row items-center">
                                     <span className="mr-4 text-white/50 font-bold group-hover:hidden w-12">
-                                        {index + 1}
+                                        {currentSong?.key == pl.key &&
+                                        isPlaying ? (
+                                            <div
+                                                id="container"
+                                                className="-bottom-1"
+                                            >
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                        ) : (
+                                            <> {index + 1}</>
+                                        )}
                                     </span>
                                     <span
                                         className="hidden group-hover:block mr-3 w-12"
