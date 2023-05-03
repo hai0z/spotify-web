@@ -78,9 +78,20 @@ function LikedSong() {
                                                 <span></span>
                                                 <span></span>
                                                 <span></span>
+                                                <span></span>
                                             </div>
                                         ) : (
-                                            <> {index + 1}</>
+                                            <span
+                                                style={{
+                                                    color:
+                                                        pl?.key ===
+                                                            currentSong?.key &&
+                                                        "#1fd664",
+                                                }}
+                                            >
+                                                {" "}
+                                                {index + 1}
+                                            </span>
                                         )}
                                     </span>
                                     <span
