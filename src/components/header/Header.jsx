@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Header({ color }) {
     const { panelWidth, expandLibrary } = usePlayerContext();
     const navigate = useNavigate();
+
     return (
         <div
             className="flex-row h-16 fixed z-20 flex items-center justify-between rounded-t-md overflow-hidden px-6"

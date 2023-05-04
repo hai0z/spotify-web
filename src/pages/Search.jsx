@@ -84,7 +84,7 @@ function Search() {
         "K-pop",
         "Hip Hop",
         "Chart",
-        "Friend Find",
+        "Fresh Find",
         "Equal",
         "Glow",
         "RADAR",
@@ -98,6 +98,7 @@ function Search() {
             setIsPlaying(!isPlaying);
         }
     };
+
     const togglePlay2 = (obj) => {
         if (obj.track.key !== currentSong?.key) {
             setIsPlaying(true);

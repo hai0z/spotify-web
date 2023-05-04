@@ -43,7 +43,6 @@ function Player() {
             audioRef.current.play();
         }
     };
-
     const handleNextSong = () => {
         const currentIndexSong = playlist.findIndex(
             (i) => i?.key == currentSong?.key
@@ -92,6 +91,7 @@ function Player() {
                     alt=""
                     className="h-16 w-16 "
                 />
+                <div className={"backdrop-blur bg-indigo-50 absolute"}></div>
                 <div className="flex flex-col">
                     <span className="text-white ml-2 font-semibold truncate w-72">
                         {currentSong?.title}
@@ -101,7 +101,6 @@ function Player() {
                     </span>
                 </div>
             </div>
-
             <div className="flex flex-col items-center h-full ">
                 <audio
                     loop

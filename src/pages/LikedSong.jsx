@@ -10,7 +10,8 @@ function LikedSong() {
             <div>
                 <Header color={""} />
                 <div
-                    className={`w-full h-[350px] px-6 transition-colors duration-200 rounded-t-md pt-16 flex flex-row bg-gradient-to-br 
+                    className={`w-full h-[350px] px-6 transition-colors duration-200 rounded-t-md pt-16
+                     flex flex-row bg-gradient-to-br 
                     from-indigo-900 to-indigo-600`}
                 >
                     <div className="object-cover mt-4  h-[240px] w-[240px] rounded-sm bg-gradient-to-br from-indigo-600 to-indigo-400 flex justify-center items-center">
