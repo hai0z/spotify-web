@@ -171,7 +171,7 @@ function Player() {
                         defaultValue={
                             localStorage.getItem("currentPosition") || 0
                         }
-                        className="w-full h-1 bg-red-500"
+                        className="w-full h-1"
                         step={0.1}
                         min={0}
                         max={Math.floor(audioRef.current?.duration).toString()}

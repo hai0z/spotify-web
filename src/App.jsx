@@ -74,29 +74,21 @@ function App() {
                     <p className="text-white text-[28px] font-bold mb-4">
                         Trending
                     </p>
-                    <div
-                        className={`grid gap-6 ${
-                            expandLibrary ? "grid-cols-5" : "grid-cols-6"
-                        }`}
-                    >
+                    <div className={`flex gap-8 overflow-hidden`}>
                         {playlist
-                            .slice(60, expandLibrary ? 65 : 66)
+                            .slice(60, expandLibrary ? 67 : 68)
                             .map((song, index) => (
                                 <Card key={index} item={song} />
                             ))}
                     </div>
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 w-full">
                     <p className="text-white text-[28px] font-bold mb-4">
                         For you
                     </p>
-                    <div
-                        className={`grid gap-6 ${
-                            expandLibrary ? "grid-cols-5" : "grid-cols-6"
-                        }`}
-                    >
+                    <div className={`flex gap-8 overflow-hidden`}>
                         {playlist
-                            .slice(30, expandLibrary ? 35 : 36)
+                            .slice(30, expandLibrary ? 37 : 38)
                             .map((song, index) => (
                                 <Card key={index} item={song} />
                             ))}
@@ -106,13 +98,9 @@ function App() {
                     <p className="text-white text-[28px] font-bold mb-4">
                         Top mixes
                     </p>
-                    <div
-                        className={`grid gap-6 ${
-                            expandLibrary ? "grid-cols-5" : "grid-cols-6"
-                        }`}
-                    >
+                    <div className={`flex gap-8 overflow-hidden`}>
                         {playlist
-                            .slice(40, expandLibrary ? 45 : 46)
+                            .slice(40, expandLibrary ? 47 : 48)
                             .map((song, index) => (
                                 <Card key={index} item={song} />
                             ))}
