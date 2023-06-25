@@ -139,8 +139,7 @@ function LikedSong() {
                                     {pl.title}
                                 </h1>
                                 <h1 className="font-semibold text-white/60 text-[14px] group-hover:text-white">
-                                    {Math.floor(Math.random() * 4 + 1)} Weeks
-                                    ago
+                                    700 year ago
                                 </h1>
                             </div>
                         );

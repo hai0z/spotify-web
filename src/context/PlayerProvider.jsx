@@ -43,7 +43,6 @@ function PlayerProvider({ children }) {
 
     useEffect(() => {
         setCurrentSong(JSON.parse(localStorage.getItem("currentPlay")));
-        JSON.pa
     }, []);
     useEffect(() => {
         localStorage.setItem("currentPlay", JSON.stringify(currentSong));
