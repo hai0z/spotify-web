@@ -29,7 +29,7 @@ function PlayerProvider({ children }) {
     }, [isShuffle]);
 
     useEffect(() => {
-        const getSong = async () => {
+        (async () => {
             const q = db.query(db.collection(db.getFirestore(), "likedList"));
             const track = [];
             const querySnapshot = await db.getDocs(q);
@@ -37,8 +37,7 @@ function PlayerProvider({ children }) {
                 track.push(doc.data());
             });
             setPlaylist(track.sort(() => 0.5 - Math.random()));
-        };
-        getSong();
+        })();
     }, []);
 
     useEffect(() => {
